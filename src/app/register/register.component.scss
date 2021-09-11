@@ -1,0 +1,51 @@
+
+body {
+  background-color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+
+.box {
+  position: relative;
+  text-align: center;
+  top: 10vh;
+  opacity: 100%;
+  margin: 0 auto;
+  //float: left;
+
+
+  padding: 10vh 1vw 10vh 1vw;
+
+
+
+
+  background: #ffffff;
+
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+
+  border: 1px solid #6d6d6d;
+  border-radius: 10px;
+
+
+  font-size: clamp(0.5rem, -0.875rem + 6vw + 2vh, 1.3rem);
+
+  //flex: auto;
+}
+
+.input-box {
+  width: auto;
+  max-width: 50vw;
+  min-width: 25vw;
+  //flex: auto;
+}
+
+.buttons {
+  margin: 0.5vh;
+  height: 5vh;
+  width: auto;
+  min-width: 20vw;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem)
+}

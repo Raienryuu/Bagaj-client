@@ -1,0 +1,21 @@
+<body xmlns="http://www.w3.org/1999/html">
+  <div  class="box" >
+    <mat-form-field class="input-box">
+      <input matInput type="text" autofocus
+             placeholder="Login" [(ngModel)]="user.login">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="input-box">
+      <input matInput type="password"
+             placeholder="Hasło" [(ngModel)]="user.password">
+    </mat-form-field>
+
+    <div>
+      <button mat-raised-button color="primary" class="buttons"
+      (click)="loginButton()">Zaloguj</button>
+    </div>
+
+    <a class="buttons" mat-button href="http://localhost:4200/register">Rejestracja</a>
+<!--    {{token.token}}-->
+  </div>
+</body>

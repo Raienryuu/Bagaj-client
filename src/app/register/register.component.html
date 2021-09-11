@@ -1,0 +1,29 @@
+
+<div class="box">
+  <mat-form-field class="input-box">
+    <input matInput type="text" autofocus
+           placeholder="Login" [(ngModel)]="user.login">
+  </mat-form-field>
+
+  <mat-form-field class="input-box">
+    <input matInput type="password"
+           placeholder="Hasło" [(ngModel)]="user.password">
+  </mat-form-field>
+
+    <br>
+
+  <mat-form-field class="input-box">
+    <input matInput type="text"
+           placeholder="Imię" [(ngModel)]="user.name">
+  </mat-form-field>
+  <mat-form-field class="input-box">
+    <input matInput type="text"
+           placeholder="Nazwisko" [(ngModel)]="user.lastname">
+  </mat-form-field>
+
+  <div>
+    <button mat-raised-button color="primary" class="buttons"
+            type="submit"
+            (click)="RegisterNewUser()">Zarejestruj</button>
+  </div>
+</div>
