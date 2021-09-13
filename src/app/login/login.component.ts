@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
               private router: Router) {
     this.token = new TokenModel();
     this.user = new UserModel();
-    this.user.login = 'user1';
-    this.user.password = 'haslo1';
+    this.user.login = 'user5';
+    this.user.password = 'haslo5';
   }
 
   ngOnInit(): void {
