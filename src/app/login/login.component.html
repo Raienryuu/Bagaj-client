@@ -1,13 +1,18 @@
 <body xmlns="http://www.w3.org/1999/html">
+<ng-form (keyup.enter)="loginButton()">
   <div  class="box" >
-    <mat-form-field class="input-box">
+    <mat-form-field class="input-box" appearance="outline">
+      <mat-label>Login</mat-label>
       <input matInput type="text" autofocus
-             placeholder="Login" [(ngModel)]="user.login">
+             [formControl]="loginControl">
+      <mat-error>Pole nie może być puste</mat-error>
     </mat-form-field>
     <br>
-    <mat-form-field class="input-box">
+    <mat-form-field class="input-box" appearance="outline">
+      <mat-label>Hasło</mat-label>
       <input matInput type="password"
-             placeholder="Hasło" [(ngModel)]="user.password">
+             [formControl]="pwControl">
+      <mat-error>Pole nie może być puste</mat-error>
     </mat-form-field>
 
     <div>
@@ -18,4 +23,5 @@
     <a class="buttons" mat-button href="http://localhost:4200/register">Rejestracja</a>
 <!--    {{token.token}}-->
   </div>
+</ng-form>
 </body>

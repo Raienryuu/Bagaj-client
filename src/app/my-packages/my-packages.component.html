@@ -1,0 +1,282 @@
+<p style="font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem)">
+  Moje przesyłki</p>
+<div [hidden]="checkDetailView()">
+
+  <table mat-table [dataSource]="tableData"
+         class="mat-elevation-z8 demo-table">
+    <ng-container matColumnDef="odleglosc">
+      <th mat-header-cell *matHeaderCellDef> Odległość </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.approximateDistance + ' km'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="wojewodztwoS">
+      <th mat-header-cell *matHeaderCellDef> Od </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.startVoivodeship}} </td>
+    </ng-container>
+    <ng-container matColumnDef="miejscowoscS">
+      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.startCity}} </td>
+    </ng-container>
+    <ng-container matColumnDef="waga">
+      <th mat-header-cell *matHeaderCellDef> Waga </th>
+      <td mat-cell *matCellDef="let packag">
+        {{calculateWeightUnit(packag.weight)}} </td>
+    </ng-container>
+    <ng-container matColumnDef="wymiary">
+      <th mat-header-cell *matHeaderCellDef> Wymiary </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.dimensions}} </td>
+    </ng-container>
+    <ng-container matColumnDef="senderHelp">
+      <th mat-header-cell *matHeaderCellDef> Pomoc </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.senderHelp ? "Tak" : "Nie"}} </td>
+    </ng-container>
+    <ng-container matColumnDef="lowestBid">
+      <th mat-header-cell *matHeaderCellDef> Oferta </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.lowestBid <= 0 ? "Brak" : packag.lowestBid + "zł"}} </td>
+    </ng-container>
+    <ng-container matColumnDef="wojewodztwoE">
+      <th mat-header-cell *matHeaderCellDef> Do </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.endVoivodeship}} </td>
+    </ng-container>
+    <ng-container matColumnDef="miejscowoscE">
+      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.endCity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stanPaczki">
+      <th mat-header-cell *matHeaderCellDef> Stan </th>
+      <td mat-cell *matCellDef="let packag">
+        {{GetStateDescription(packag.offerState)}} </td>
+    </ng-container>
+
+    <tr mat-header-row
+        *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row
+        (click)="openPackageDetails(row)"
+        *matRowDef="let row;
+  columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 (page)="ChangePage($event)"
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+<div *ngIf="detailedView">
+
+    <mat-tab-group style="width: 100%">
+      <mat-tab label="Ogólne" >
+        <div class="tab-group">
+          <table>
+            <tr>
+              <td class="table-column1">Nazwa użytkownika</td>
+              <td class="table-column2">
+                {{this.senderUser.login}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Imię</td>
+              <td class="table-column2">
+                {{this.senderUser.name}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Kontakt</td>
+              <td class="table-column2">
+                {{this.senderUser.contactInfo}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Ocena</td>
+              <td class="table-column2">{{this.senderUser.rating < 0
+                ? "Brak" : this.senderUser.rating}}</td>
+            </tr>
+          </table>
+        </div>
+      </mat-tab>
+      <mat-tab label="Od">
+        <div class="tab-group">
+          <table>
+            <tr>
+              <td class="table-column1">Województwo</td>
+              <td class="table-column2">
+                {{this.selectedPackage.startVoivodeship}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Kod pocztowy</td>
+              <td class="table-column2">
+                {{this.selectedPackage.startPostCode}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Miejscowość</td>
+              <td class="table-column2">
+                {{this.selectedPackage.startCity}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Adres</td>
+              <td class="table-column2">
+                {{this.selectedPackage.startStreetAddress}}</td>
+            </tr>
+          </table>
+        </div>
+      </mat-tab>
+      <mat-tab label="Do">
+        <div class="tab-group">
+          <table>
+            <tr>
+              <td class="table-column1">Województwo</td>
+              <td class="table-column2">
+                {{this.selectedPackage.endVoivodeship}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Kod pocztowy</td>
+              <td class="table-column2">
+                {{this.selectedPackage.endPostCode}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Miejscowość</td>
+              <td class="table-column2">
+                {{this.selectedPackage.endCity}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Adres</td>
+              <td class="table-column2">
+                {{this.selectedPackage.endStreetAddress}}</td>
+            </tr>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Szczegóły">
+        <div class="tab-group">
+          <table>
+            <tr>
+              <td class="table-column1">Waga</td>
+              <td class="table-column2">
+                {{calculateWeightUnit(
+                this.selectedPackage.weight)}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Wymiary</td>
+              <td class="table-column2">
+                {{this.selectedPackage.dimensions}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Pomoc w załadunku</td>
+              <td class="table-column2">
+                {{this.selectedPackage.senderHelp ? "Tak" : "Nie"}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Obecna oferta</td>
+              <td class="table-column2">
+                {{this.selectedPackage.lowestBid <= 0 ? "Brak"
+                : this.selectedPackage.lowestBid + " zł"}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Dodatkowe informacje</td>
+              <td class="table-column2">
+                {{this.selectedPackage.comment}}</td>
+            </tr>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab *ngIf="checkIfSenderOrTransporter()"
+               label="Oferta od" >
+        <div class="tab-group">
+          <table>
+            <tr>
+              <td class="table-column1">Nazwa użytkownika</td>
+              <td class="table-column2">
+                {{this.transporterUser.login}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Imię</td>
+              <td class="table-column2">
+                {{this.transporterUser.name}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Kontakt</td>
+              <td class="table-column2">
+                {{this.transporterUser.contactInfo}}</td>
+            </tr>
+            <tr>
+              <td class="table-column1">Ocena</td>
+              <td class="table-column2">{{this.transporterUser.rating < 0
+                ? "Brak" : this.transporterUser.rating}}</td>
+            </tr>
+          </table>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  <button mat-raised-button color="primary"
+          class="menu-buttons"
+          (click)="goBack()">Powrót</button>
+
+    <button mat-raised-button color="primary"
+            *ngIf="checkIfSender()
+&& !checkIfPackageOfferIsNoLongerOpen"
+            class="menu-buttons"
+            (click)="cancelPackage()">Anuluj</button>
+
+    <button mat-raised-button color="primary"
+            *ngIf="checkIfPackagageGotAnyBid() &&
+            checkIfSender()
+&& !checkIfPackageOfferIsNoLongerOpen"
+            class="menu-buttons"
+            (click)="acceptTransporterPackage()">Akceptuj</button>
+
+  <mat-form-field appearance="outline" class="input-box"
+                  *ngIf="checkIfPackageIsInProgress()
+&& checkIfSender() || (!checkIfSender()
+&& checkIfPackageIsClosed())">
+    <mat-label>Ocena</mat-label>
+    <select matNativeControl
+            [formControl]="ratingControl"
+            required>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6>6</option>
+      <option value=7>7</option>
+      <option value=8>8</option>
+      <option value=9>9</option>
+      <option value=10>10</option>
+    </select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary"
+          [disabled]="!ratingControl.valid"
+          *ngIf="checkIfPackageIsInProgress()
+&& checkIfSender() || (!checkIfSender()
+&& checkIfPackageIsClosed())"
+          class="menu-buttons"
+          (click)="ratePackage()">Oceń i zamknij oferte</button>
+
+  <mat-form-field class="input-box" appearance="outline"
+                  *ngIf="!checkIfSender()
+&& !checkIfPackageOfferIsNoLongerOpen"
+                  style="margin: 3vw">
+    <mat-label>Twoja oferta</mat-label>
+    <input matInput type="number"
+           [formControl]="bidControl"
+    >
+    <span matSuffix> zł</span>
+    <mat-error>Oferta musi być większa niż obecna</mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary"
+          style="margin-left: 1vw;
+          margin-right: 1vw"
+          *ngIf="!checkIfSender()
+&& !checkIfPackageOfferIsNoLongerOpen"
+          class="menu-buttons"
+          (click)="AddNewBid()">Złóż oferte</button>
+
+</div>

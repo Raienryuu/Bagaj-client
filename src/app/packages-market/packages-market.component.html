@@ -1,0 +1,276 @@
+
+<div [hidden]="detailedView">
+  <p style="font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem)">
+    Wszystkie przesyłki<br>
+    Flitry</p>
+  <div class="filters">
+    <form [formGroup]="filtersGroup">
+      <mat-card
+        style="padding: 4vh">
+        <mat-form-field appearance="outline" class="input-box">
+          <mat-label>Woj początkowe</mat-label>
+          <select matNativeControl
+                  formControlName="startVoivoControl">
+            <option value='brak'>brak</option>
+            <option value=dolnośląskie>dolnośląskie</option>
+            <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
+            <option value=lubelskie>lubelskie</option>
+            <option value=lubuskie>lubuskie</option>
+            <option value=łódzkie>łódzkie</option>
+            <option value=małopolskie>małopolskie</option>
+            <option value=mazowieckie>mazowieckie</option>
+            <option value=opolskie>opolskie</option>
+            <option value=podkarpackie>podkarpackie</option>
+            <option value=podlaskie>podlaskie</option>
+            <option value=pomorskie>pomorskie</option>
+            <option value=śląskie>śląskie</option>
+            <option value=świętokrzyskie>świętokrzyskie</option>
+            <option value=warmińsko-mazurskie>warmińsko-mazurskie</option>
+            <option value=wielkopolskie>wielkopolskie</option>
+            <option value=zachodniopomorskie>zachodniopomorskie</option>
+          </select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-box">
+          <mat-label>Woj końcowe</mat-label>
+          <select matNativeControl
+                  formControlName="endVoivoControl">
+            <option value='brak'>brak</option>
+            <option value=dolnośląskie>dolnośląskie</option>
+            <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
+            <option value=lubelskie>lubelskie</option>
+            <option value=lubuskie>lubuskie</option>
+            <option value=łódzkie>łódzkie</option>
+            <option value=małopolskie>małopolskie</option>
+            <option value=mazowieckie>mazowieckie</option>
+            <option value=opolskie>opolskie</option>
+            <option value=podkarpackie>podkarpackie</option>
+            <option value=podlaskie>podlaskie</option>
+            <option value=pomorskie>pomorskie</option>
+            <option value=śląskie>śląskie</option>
+            <option value=świętokrzyskie>świętokrzyskie</option>
+            <option value=warmińsko-mazurskie>warmińsko-mazurskie</option>
+            <option value=wielkopolskie>wielkopolskie</option>
+            <option value=zachodniopomorskie>zachodniopomorskie</option>
+          </select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-box">
+          <mat-label>Waga do (kilogramy)</mat-label>
+          <input  matInput placeholder=""
+                  type="number"
+                  formControlName="weightLimitControl">
+          <span matSuffix> kg</span>
+          <mat-error>Przesyłka nie może być lżejsza niż 1kg</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-box">
+          <mat-label>Odległość do (kilometry)</mat-label>
+          <input  matInput placeholder=""
+                  type="number"
+                  formControlName="distanceControl">
+          <span matSuffix> km</span>
+          <mat-error>Odległość nie może być mniejsza niż 1km</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent"
+                style="margin-left: 1vw;
+                margin-right: 1vw"
+                class="menu-buttons"
+                (click)="FilterPackages()">Szukaj</button>
+        <br>
+
+      </mat-card>
+    </form>
+  </div>
+  <br>
+  <table mat-table [dataSource]="tableData"
+         class="mat-elevation-z8 demo-table">
+    <ng-container matColumnDef="odleglosc">
+      <th mat-header-cell *matHeaderCellDef> Odległość </th>
+      <td mat-cell *matCellDef="let packag">
+        {{packag.approximateDistance + ' km'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="wojewodztwoS">
+      <th mat-header-cell *matHeaderCellDef> Od </th>
+      <td mat-cell *matCellDef="let package">
+        {{package.startVoivodeship}} </td>
+    </ng-container>
+    <ng-container matColumnDef="miejscowoscS">
+      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
+      <td mat-cell *matCellDef="let package">
+        {{package.startCity}} </td>
+    </ng-container>
+    <ng-container matColumnDef="waga">
+      <th mat-header-cell *matHeaderCellDef> Waga </th>
+      <td mat-cell *matCellDef="let package">
+        {{calculateWeightUnit(package.weight)}} </td>
+    </ng-container>
+    <ng-container matColumnDef="wymiary">
+      <th mat-header-cell *matHeaderCellDef> Wymiary </th>
+      <td mat-cell *matCellDef="let package">
+        {{package.dimensions}} </td>
+    </ng-container>
+    <ng-container matColumnDef="senderHelp">
+      <th mat-header-cell *matHeaderCellDef> Pomoc </th>
+      <td mat-cell *matCellDef="let package">
+        {{package.senderHelp ? "Tak" : "Nie"}} </td>
+    </ng-container>
+    <ng-container matColumnDef="lowestBid">
+      <th mat-header-cell *matHeaderCellDef> Oferta </th>
+      <td mat-cell *matCellDef="let package">
+        {{package.lowestBid <= 0 ? "Brak" : package.lowestBid + "zł"}} </td>
+    </ng-container>
+    <ng-container matColumnDef="wojewodztwoE">
+      <th mat-header-cell *matHeaderCellDef> Do </th>
+      <td mat-cell *matCellDef="let package">
+        {{package.endVoivodeship}} </td>
+    </ng-container>
+    <ng-container matColumnDef="miejscowoscE">
+      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
+      <td mat-cell *matCellDef="let package">
+        {{package.endCity}} </td>
+    </ng-container>
+
+    <tr mat-header-row
+        *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row
+        (click)="openPackageDetails(row)"
+        *matRowDef="let row;
+  columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 (page)="ChangePage($event)"
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+<div *ngIf="detailedView">
+
+  <mat-tab-group style="width: 100%">
+    <mat-tab label="Ogólne" >
+      <div class="tab-group">
+        <table>
+          <tr>
+            <td class="table-column1">Nazwa użytkownika</td>
+            <td class="table-column2">
+              {{this.selectedUser.login}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Ocena</td>
+            <td class="table-column2">{{this.selectedUser.rating < 0
+              ? "Brak" : this.selectedUser.rating}}</td>
+          </tr>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Od">
+      <div class="tab-group">
+        <table>
+          <tr>
+            <td class="table-column1">Województwo</td>
+            <td class="table-column2">
+              {{this.selectedPackage.startVoivodeship}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Kod pocztowy</td>
+            <td class="table-column2">
+              {{this.selectedPackage.startPostCode}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Miejscowość</td>
+            <td class="table-column2">
+              {{this.selectedPackage.startCity}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Adres</td>
+            <td class="table-column2">
+              {{this.selectedPackage.startStreetAddress}}</td>
+          </tr>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Do">
+      <div class="tab-group">
+        <table>
+          <tr>
+            <td class="table-column1">Województwo</td>
+            <td class="table-column2">
+              {{this.selectedPackage.endVoivodeship}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Kod pocztowy</td>
+            <td class="table-column2">
+              {{this.selectedPackage.endPostCode}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Miejscowość</td>
+            <td class="table-column2">
+              {{this.selectedPackage.endCity}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Adres</td>
+            <td class="table-column2">
+              {{this.selectedPackage.endStreetAddress}}</td>
+          </tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Szczegóły">
+      <div class="tab-group">
+        <table>
+          <tr>
+            <td class="table-column1">Waga</td>
+            <td class="table-column2">
+              {{calculateWeightUnit(
+              this.selectedPackage.weight)}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Wymiary</td>
+            <td class="table-column2">
+              {{this.selectedPackage.dimensions}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Pomoc w załadunku</td>
+            <td class="table-column2">
+              {{this.selectedPackage.senderHelp ? "Tak" : "Nie"}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Obecna oferta</td>
+            <td class="table-column2">
+              {{this.selectedPackage.lowestBid <= 0 ? "Brak"
+              : this.selectedPackage.lowestBid + " zł"}}</td>
+          </tr>
+          <tr>
+            <td class="table-column1">Dodatkowe informacje</td>
+            <td class="table-column2">
+              {{this.selectedPackage.comment}}</td>
+          </tr>
+        </table>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+  <mat-form-field class="input-box" appearance="outline"
+                  style="margin: 3vw">
+    <mat-label>Twoja oferta</mat-label>
+    <input matInput type="number"
+           [formControl]="bidControl">
+    <span matSuffix> zł</span>
+    <mat-error>Oferta musi być większa niż obecna</mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary"
+          style="margin-left: 1vw;
+          margin-right: 1vw"
+          class="menu-buttons"
+          (click)="AddNewBid()">Złóż oferte</button>
+
+  <button mat-raised-button color="primary"
+          style="margin: 5vw"
+          class="menu-buttons"
+          (click)="goBack()">Powrót</button>
+
+</div>

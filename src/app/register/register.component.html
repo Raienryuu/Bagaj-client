@@ -1,24 +1,52 @@
 
-<div class="box">
-  <mat-form-field class="input-box">
+<ng-form (keyup.enter)="RegisterNewUser()">
+<div class="box" >
+  <div class="title">
+    Rejestracja
+  </div>
+  <br>
+  <br>
+  <mat-form-field class="input-box" appearance="outline">
+    <mat-label>Login</mat-label>
     <input matInput type="text" autofocus
-           placeholder="Login" [(ngModel)]="user.login">
+           [formControl]="loginControl">
+    <mat-error>Minimum 6 znaków</mat-error>
+    <mat-error *ngIf="!loginAvailable">Wybrana nazwa jest już zajęta</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="input-box">
+  <mat-form-field class="input-box" appearance="outline">
+    <mat-label>Hasło</mat-label>
     <input matInput type="password"
-           placeholder="Hasło" [(ngModel)]="user.password">
+           [formControl]="pwControl">
+    <mat-error>Minimum 3 znaki</mat-error>
   </mat-form-field>
 
     <br>
 
-  <mat-form-field class="input-box">
+  <mat-form-field class="input-box" appearance="outline">
+    <mat-label>Imię</mat-label>
     <input matInput type="text"
-           placeholder="Imię" [(ngModel)]="user.name">
+           [formControl]="nameControl">
+    <mat-error>Pole nie może być puste</mat-error>
   </mat-form-field>
-  <mat-form-field class="input-box">
+
+  <mat-form-field class="input-box" appearance="outline">
+    <mat-label>Nazwisko</mat-label>
     <input matInput type="text"
-           placeholder="Nazwisko" [(ngModel)]="user.lastname">
+           [formControl]="lastnameControl">
+    <mat-error>Pole nie może być puste</mat-error>
+  </mat-form-field>
+
+  <br>
+
+  <br>
+  <mat-form-field class="input-box" style="min-width: 50vw; max-width: 100vw"
+                  appearance="outline">
+    <mat-label>Kontakt (numer telefonu lub adres e-mail)</mat-label>
+    <input matInput type="text"
+           placeholder="np. konto@poczta.pl, +48 111 222 333"
+           [formControl]="contactinfoControl">
+    <mat-error>Pole nie może być puste</mat-error>
   </mat-form-field>
 
   <div>
@@ -26,4 +54,6 @@
             type="submit"
             (click)="RegisterNewUser()">Zarejestruj</button>
   </div>
+  <mat-error *ngIf="!serverResponse">Nie udało się stworzyć konta, spróbuj ponownie później</mat-error>
 </div>
+</ng-form>

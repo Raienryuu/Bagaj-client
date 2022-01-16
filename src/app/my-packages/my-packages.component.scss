@@ -1,0 +1,123 @@
+.mat-column-odleglosc {
+
+  border-right: 1px solid currentColor;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+
+}
+
+.mat-column-wojewodztwoS {
+
+  border-right: 1px solid currentColor;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+
+}
+
+.mat-column-miejscowoscS {
+
+  border-right: 0.5vh solid green;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.mat-column-waga {
+
+  border-right: 1px solid currentColor;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.mat-column-wymiary {
+
+  border-right: 1px solid currentColor;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.mat-column-senderHelp {
+
+  border-right: 1px solid currentColor;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.mat-column-lowestBid {
+
+  border-right: 0.5vh solid red;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.mat-column-wojewodztwoE {
+
+  border-right: 1px solid currentColor;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.mat-column-miejscowoscE {
+  border-right: 1px solid currentColor;
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.mat-column-stanPaczki {
+
+  text-align: center;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+}
+
+.demo-table {
+  width: 95%;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  min-height: 26vw;
+}
+
+.mat-row:hover .mat-cell {
+  border-top: 1px solid;
+  background: #d5b0ff;
+  border-color: currentColor;
+}
+
+.package-details {
+  margin: 1vh;
+}
+
+.tab-group {
+  min-height: 40vh;
+  padding-top: 1vh;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+
+}
+
+.table-column1 {
+  padding: 1vw;
+  margin: 1vh;
+  text-align: left;
+}
+
+.table-column2 {
+  padding: 1vw;
+  margin: 1vh;
+  text-align: left;
+}
+
+.input-box {
+  width: auto;
+  max-height: 2vh;
+  padding: 1vh;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+
+  //flex: auto;
+}
+
+.menu-buttons {
+  margin: 0.5vh;
+  height: 5vh;
+  width: auto;
+  min-width: 15vh;
+  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+  padding: 0.1vh;
+}

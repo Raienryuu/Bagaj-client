@@ -4,4 +4,6 @@ export class UserModel {
   Password: string | undefined;
   Name: string | undefined;
   Lastname: string | undefined;
+  ContactInfo: string | undefined;
+  Rating: number | undefined;
 }

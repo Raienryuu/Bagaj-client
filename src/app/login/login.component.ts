@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthorizationService} from '../services/authorization.service';
-import { TokenModel } from '../models/token.model';
+import {TokenModel} from '../models/token.model';
 import {UserModel} from '../models/user.model';
-import {waitForAsync} from '@angular/core/testing';
 import {Router} from '@angular/router';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +13,24 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   user: any;
   token: any;
+  loginControl: FormControl;
+  pwControl: FormControl;
 
   constructor(private authorizationService: AuthorizationService,
               private router: Router) {
     this.token = new TokenModel();
     this.user = new UserModel();
+
+    this.loginControl = new FormControl(this.user.login, [
+      Validators.required,
+      Validators.minLength(1)]
+    );
+
+    this.pwControl = new FormControl(this.user.password, [
+      Validators.required,
+      Validators.minLength(1)]
+    );
+
     this.user.login = 'user5';
     this.user.password = 'haslo5';
   }
@@ -30,12 +43,17 @@ export class LoginComponent implements OnInit {
 
 
   loginButton(): void {
-    this.authorizationService.loginUser(this.user.login, this.user.password)
-      .subscribe(token => {this.token = token;
-                           this.router.navigate(['/home']);
-                           localStorage.setItem('token', this.token.token);
-                             });
-
+    if (this.loginControl.valid && this.pwControl.valid){
+      this.user = {
+        login: this.loginControl.value,
+        password: this.pwControl.value
+      };
+      this.authorizationService.loginUser(this.user.login, this.user.password)
+        .subscribe(token => {this.token = token;
+                             this.router.navigate(['/home']);
+                             localStorage.setItem('token', this.token.token);
+        });
+    }
     // console.log(localStorage.getItem('token'));
     // console.log(this.token.token);
   }

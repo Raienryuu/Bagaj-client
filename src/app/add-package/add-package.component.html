@@ -1,0 +1,152 @@
+<br>
+<mat-vertical-stepper [linear]="true" #stepper >
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Miejsce odbioru przesyłki
+      </ng-template>
+
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Województwo</mat-label>
+        <select matNativeControl required
+                formControlName="firstVoivodeshipControl">
+          <option value=dolnośląskie>dolnośląskie</option>
+          <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
+          <option value=lubelskie>lubelskie</option>
+          <option value=lubuskie>lubuskie</option>
+          <option value=łódzkie>łódzkie</option>
+          <option value=małopolskie>małopolskie</option>
+          <option value=mazowieckie>mazowieckie</option>
+          <option value=opolskie>opolskie</option>
+          <option value=podkarpackie>podkarpackie</option>
+          <option value=podlaskie>podlaskie</option>
+          <option value=pomorskie>pomorskie</option>
+          <option value=śląskie>śląskie</option>
+          <option value=świętokrzyskie>świętokrzyskie</option>
+          <option value=warmińsko-mazurskie>warmińsko-mazurskie</option>
+          <option value=wielkopolskie>wielkopolskie</option>
+          <option value=zachodniopomorskie>zachodniopomorskie</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Kod pocztowy</mat-label>
+        <input matInput placeholder="00-675"
+               formControlName="firstPostalControl">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Miejscowość</mat-label>
+        <input matInput placeholder="Warszawa"
+               formControlName="firstCityControl">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Adres</mat-label>
+        <input matInput placeholder="Koszykowa 1/2a"
+               formControlName="firstAddressControl">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Dalej</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Miejsce dostawy przesyłki
+      </ng-template>
+
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Województwo</mat-label>
+        <select matNativeControl required
+                formControlName="secondVoivodeshipControl">
+          <option value=dolnośląskie>dolnośląskie</option>
+          <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
+          <option value=lubelskie>lubelskie</option>
+          <option value=lubuskie>lubuskie</option>
+          <option value=łódzkie>łódzkie</option>
+          <option value=małopolskie>małopolskie</option>
+          <option value=mazowieckie>mazowieckie</option>
+          <option value=opolskie>opolskie</option>
+          <option value=podkarpackie>podkarpackie</option>
+          <option value=podlaskie>podlaskie</option>
+          <option value=pomorskie>pomorskie</option>
+          <option value=śląskie>śląskie</option>
+          <option value=świętokrzyskie>świętokrzyskie</option>
+          <option value=warmińsko-mazurskie>warmińsko-mazurskie</option>
+          <option value=wielkopolskie>wielkopolskie</option>
+          <option value=zachodniopomorskie>zachodniopomorskie</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Kod pocztowy</mat-label>
+        <input matInput placeholder="00-675"
+               formControlName="secondPostalControl">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Miejscowość</mat-label>
+        <input matInput placeholder="Warszawa"
+               formControlName="secondCityControl">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Adres</mat-label>
+        <input matInput placeholder="Koszykowa 1/2a"
+               formControlName="secondAddressControl">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Powrót</button>
+        <button mat-button matStepperNext>Dalej</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Informacje o przesyłce</ng-template>
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Waga (kilogramy)</mat-label>
+        <input  matInput placeholder="1"
+                type="number"
+                formControlName="weightControl">
+        <span matSuffix> kg</span>
+        <mat-error>Przesyłka nie może być lżejsza niż 0kg</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Wymiary</mat-label>
+        <input matInput placeholder="5cm x 2m x 3c"
+               formControlName="dimensionControl">
+      </mat-form-field>
+      <mat-checkbox formControlName="senderHelpsControl"
+                    color="primary">
+        Zajmę się załadunkiem/rozładunkiem
+      </mat-checkbox>
+      <div>
+        <button mat-button matStepperPrevious>Powrót</button>
+        <button mat-button matStepperNext>Dalej</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fourthFormGroup">
+    <form [formGroup]="fourthFormGroup">
+      <ng-template matStepLabel>Potwierdzenie</ng-template>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Komentarz</mat-label>
+        <textarea matInput placeholder="Opis przewożonego towaru"
+                  formControlName="commentControl"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-box">
+        <mat-label>Odległość (kilometry)</mat-label>
+        <input  matInput placeholder="1"
+                type="number"
+                formControlName="distanceControl">
+        <span matSuffix> km</span>
+        <mat-error>Dystans musi być większy niż 0km</mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious
+                class="buttons">Powrót</button>
+        <button mat-raised-button color="primary" class="buttons"
+                type="submit"
+                (click)="AddPackage()">Dodaj</button>
+        <!--        <button mat-button (click)="stepper.">Reset</button>-->
+      </div>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>
