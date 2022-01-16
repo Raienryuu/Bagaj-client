@@ -1,0 +1,54 @@
+<div class="maindiv">
+
+
+  <mat-drawer-container class="example-container">
+    <mat-drawer mode="side" [opened]="sidenavOpen">
+      <div style="padding: 0.1vh; margin: 0.5vh">
+        <div class="menu-buttons"
+             style="text-align: center!important;
+font-size: clamp(1.4rem, -0.875rem + 2vw + 2vh, 2.6rem);
+margin-bottom: 0">
+          dummy{{userData.name}}
+        </div>
+
+
+        <button mat-raised-button color="primary"
+
+                class="menu-buttons"
+                (click)="logout()">Wyloguj</button>
+        <br>
+        <br>
+        <button mat-raised-button color="primary"
+                class="menu-buttons"
+                (click)="GetMarketPackages()">
+          Rynek</button>
+        <br>
+        <button mat-raised-button color="primary"
+                class="menu-buttons"
+                (click)="GetUserPackages()">
+          Moje przesyłki</button>
+        <br>
+        <button mat-raised-button color="primary"
+                class="menu-buttons"
+                (click)="AddPackage()">
+          Dodaj przesyłkę</button>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <button mat-icon-button (click)="sidenavOpen=!sidenavOpen"><mat-icon>menu</mat-icon></button>
+      <div *ngIf="userChoice == 1">
+        <app-add-package></app-add-package>
+      </div>
+      <div *ngIf="userChoice == 2">
+        <app-packages-market></app-packages-market>
+      </div>
+      <div *ngIf="userChoice == 3">
+        <app-my-packages></app-my-packages>
+      </div>
+
+
+
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+</div>
