@@ -59,7 +59,7 @@ export class MyPackagesComponent implements OnInit {
     this.transporterUser = new UserModel();
     this.tableData.paginator = this.paginator;
 
-    this.detailedView = false; // tu false
+    this.detailedView = false;
   }
 
   GetUserPackages(): void {

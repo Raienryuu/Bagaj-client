@@ -1,9 +1,10 @@
-<p style="font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem)">
-  Moje przesyłki</p>
-<div [hidden]="checkDetailView()">
+<div class="main">
 
-  <table mat-table [dataSource]="tableData"
-         class="mat-elevation-z8 demo-table">
+<div [hidden]="checkDetailView()">
+  <!--
+    <table mat-table [dataSource]="tableData"
+           class="mat-elevation-z8 demo-table">
+
     <ng-container matColumnDef="odleglosc">
       <th mat-header-cell *matHeaderCellDef> Odległość </th>
       <td mat-cell *matCellDef="let packag">
@@ -63,15 +64,22 @@
         *matRowDef="let row;
   columns: displayedColumns;"></tr>
   </table>
+
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  (page)="ChangePage($event)"
                  aria-label="Select page of periodic elements">
   </mat-paginator>
+  -->
+  <div *ngFor="let packag of packagesList"
+       (click)="openPackageDetails(packag.id)">
+    {{GetStateDescription(packag.offerState)}}
+  </div>
+
 </div>
 <div *ngIf="detailedView">
 
-    <mat-tab-group style="width: 100%">
-      <mat-tab label="Ogólne" >
+    <mat-tab-group mat-align-tabs="center" class="info-header">
+      <mat-tab label="Ogólne" style="font-size: 8px">
         <div class="tab-group">
           <table>
             <tr>
@@ -213,20 +221,22 @@
       </mat-tab>
 
     </mat-tab-group>
-  <button mat-raised-button color="primary"
-          class="menu-buttons"
-          (click)="goBack()">Powrót</button>
+
+    <div class="buttons">
+      <button mat-raised-button color="primary"
+              class="menu-buttons"
+              (click)="goBack()">Powrót</button>
 
     <button mat-raised-button color="primary"
             *ngIf="checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen"
+&& !checkIfPackageOfferIsNoLongerOpen()"
             class="menu-buttons"
             (click)="cancelPackage()">Anuluj</button>
 
     <button mat-raised-button color="primary"
             *ngIf="checkIfPackagageGotAnyBid() &&
             checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen"
+&& !checkIfPackageOfferIsNoLongerOpen()"
             class="menu-buttons"
             (click)="acceptTransporterPackage()">Akceptuj</button>
 
@@ -261,8 +271,8 @@
 
   <mat-form-field class="input-box" appearance="outline"
                   *ngIf="!checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen"
-                  style="margin: 3vw">
+&& !checkIfPackageOfferIsNoLongerOpen()"
+                  >
     <mat-label>Twoja oferta</mat-label>
     <input matInput type="number"
            [formControl]="bidControl"
@@ -272,11 +282,12 @@
   </mat-form-field>
 
   <button mat-raised-button color="primary"
-          style="margin-left: 1vw;
-          margin-right: 1vw"
-          *ngIf="!checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen"
           class="menu-buttons"
+          *ngIf="!checkIfSender()
+&& !checkIfPackageOfferIsNoLongerOpen()"
           (click)="AddNewBid()">Złóż oferte</button>
 
+
+    </div>
+</div>
 </div>

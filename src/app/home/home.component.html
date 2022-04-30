@@ -1,23 +1,33 @@
-<div class="maindiv">
+<div class="home-class">
+  <mat-toolbar color="primary" class="font-sizer">
+    <button mat-icon-button (click)="sidenavOpen=!sidenavOpen"><mat-icon>menu</mat-icon></button>
 
 
-  <mat-drawer-container class="example-container">
-    <mat-drawer mode="side" [opened]="sidenavOpen">
+    <a mat-button class="buttons-toolbar"
+        href="http://localhost:4200/"
+    >Strona główna</a>
+
+    <div class="username"></div>
+
+
+    <div>
+      Witaj, {{userData.name}}</div>
+
+
+    <button mat-button
+            class="buttons-toolbar"
+            (click)="logout()">Wyloguj</button>
+  </mat-toolbar>
+
+  <mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sidenavOpen" class="drawer">
       <div style="padding: 0.1vh; margin: 0.5vh">
         <div class="menu-buttons"
-             style="text-align: center!important;
-font-size: clamp(1.4rem, -0.875rem + 2vw + 2vh, 2.6rem);
-margin-bottom: 0">
-          dummy{{userData.name}}
-        </div>
+              style="text-align: center!important;
+              font-size: clamp(0.7rem, -0.875rem + 1.5vw + 1.5vh, 1.5rem);
+              margin-bottom: 0">
 
 
-        <button mat-raised-button color="primary"
-
-                class="menu-buttons"
-                (click)="logout()">Wyloguj</button>
-        <br>
-        <br>
         <button mat-raised-button color="primary"
                 class="menu-buttons"
                 (click)="GetMarketPackages()">
@@ -33,9 +43,10 @@ margin-bottom: 0">
                 (click)="AddPackage()">
           Dodaj przesyłkę</button>
       </div>
+      </div>
     </mat-drawer>
-    <mat-drawer-content>
-      <button mat-icon-button (click)="sidenavOpen=!sidenavOpen"><mat-icon>menu</mat-icon></button>
+    <mat-drawer-content class="drawer-content" style="">
+
       <div *ngIf="userChoice == 1">
         <app-add-package></app-add-package>
       </div>

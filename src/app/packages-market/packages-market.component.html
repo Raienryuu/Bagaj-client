@@ -1,4 +1,4 @@
-
+<div class="main">
 <div [hidden]="detailedView">
   <p style="font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem)">
     Wszystkie przesyłki<br>
@@ -252,9 +252,13 @@
 
   </mat-tab-group>
 
+  <div class="buttons">
 
-  <mat-form-field class="input-box" appearance="outline"
-                  style="margin: 3vw">
+  <button mat-raised-button color="primary"
+          class="menu-buttons"
+          (click)="goBack()">Powrót</button>
+
+  <mat-form-field class="input-box" appearance="outline">
     <mat-label>Twoja oferta</mat-label>
     <input matInput type="number"
            [formControl]="bidControl">
@@ -263,14 +267,10 @@
   </mat-form-field>
 
   <button mat-raised-button color="primary"
-          style="margin-left: 1vw;
-          margin-right: 1vw"
           class="menu-buttons"
           (click)="AddNewBid()">Złóż oferte</button>
 
-  <button mat-raised-button color="primary"
-          style="margin: 5vw"
-          class="menu-buttons"
-          (click)="goBack()">Powrót</button>
+  </div>
 
+</div>
 </div>

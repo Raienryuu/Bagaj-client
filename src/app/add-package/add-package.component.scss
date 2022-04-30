@@ -1,0 +1,12 @@
+@mixin sizefont {
+  font-size: clamp(0.4rem, -0.875rem + 1.5vw + 1.5vh, 1.2rem) !important;
+}
+
+.add-package {
+  @include sizefont;
+}
+
+.input-box {
+  padding: 1vw;
+  @include sizefont
+}

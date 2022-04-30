@@ -4,6 +4,7 @@ import {TokenModel} from '../models/token.model';
 import {UserModel} from '../models/user.model';
 import {Router} from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   pwControl: FormControl;
 
   constructor(private authorizationService: AuthorizationService,
-              private router: Router) {
+              private router: Router,
+              private snackBar: MatSnackBar) {
     this.token = new TokenModel();
     this.user = new UserModel();
 
@@ -48,14 +50,17 @@ export class LoginComponent implements OnInit {
         login: this.loginControl.value,
         password: this.pwControl.value
       };
+
       this.authorizationService.loginUser(this.user.login, this.user.password)
-        .subscribe(token => {this.token = token;
-                             this.router.navigate(['/home']);
-                             localStorage.setItem('token', this.token.token);
-        });
+        .subscribe(token => {
+                              this.token = token;
+                              this.router.navigate(['/home']);
+                              localStorage.setItem('token', this.token.token);
+    }, err => (this.snackBar.open('Nieprawidłowa nazwa użytkownika lub hasło', '', {
+            duration: 3000, panelClass: ['red-snackbar'] }))
+        );
     }
-    // console.log(localStorage.getItem('token'));
-    // console.log(this.token.token);
+
   }
 
 }

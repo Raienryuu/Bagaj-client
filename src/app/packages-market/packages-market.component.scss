@@ -1,3 +1,7 @@
+@mixin fontsizer {
+  font-size: clamp(0.4rem, -0.875rem + 1.5vw + 1.5vh, 1.3rem) !important;
+}
+
 .mat-column-odleglosc {
 
   border-right: 1px solid currentColor;
@@ -82,7 +86,7 @@
 .tab-group {
   min-height: 40vh;
   padding-top: 1vh;
-  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+  @include fontsizer;
 
 }
 
@@ -99,14 +103,53 @@
 }
 
 .input-box {
-  width: auto;
-  max-height: 2vh;
   padding: 1vw;
-  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
-
-  //flex: auto;
+  width: 5vw;
+  min-width: 60px;
+  margin: auto;
+  height: 0%;
+  @include fontsizer;
 }
 
 .filters {
-  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+  @include fontsizer;
+}
+
+.menu-buttons {
+  @include fontsizer;
+  margin: 0.5vh;
+  height: 5%;
+  min-height: 50px;
+  min-width: 10vw;
+  padding: 0.1vh;
+}
+
+.buttons {
+  display: inline-block;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+
+  height: 100vh;
+  margin: auto;
+}
+
+.info-header {
+  @include fontsizer;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+  @include fontsizer;
+}
+
+.main{
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 70vw;
+  min-width: 310px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
 }

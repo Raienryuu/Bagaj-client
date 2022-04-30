@@ -3,3 +3,29 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.green-snackbar {
+  background: #276914;
+  color: #ffffff;
+  span {
+    margin: auto;
+    text-align: center;
+  }
+}
+
+.red-snackbar {
+  background: #8b0808;
+  color: #ffffff;
+  span {
+    margin: auto;
+    text-align: center;
+  }
+}
+
+.puple-snackbar {
+  background: #633CB4;
+  color: #ffffff;
+  span {
+    margin: auto;
+    text-align: center;
+  }
+}

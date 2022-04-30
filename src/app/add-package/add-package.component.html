@@ -1,13 +1,14 @@
+<div class="add-package">
 <br>
 <mat-vertical-stepper [linear]="true" #stepper >
   <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Miejsce odbioru przesyłki
+    <form [formGroup]="firstFormGroup" >
+      <ng-template matStepLabel><span class="add-package">Miejsce nadania przesyłki</span>
       </ng-template>
 
       <mat-form-field appearance="outline" class="input-box">
         <mat-label>Województwo</mat-label>
-        <select matNativeControl required
+        <select matNativeControl
                 formControlName="firstVoivodeshipControl">
           <option value=dolnośląskie>dolnośląskie</option>
           <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
@@ -49,12 +50,12 @@
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Miejsce dostawy przesyłki
+      <ng-template matStepLabel><span class="add-package">Miejsce dostawy przesyłki</span>
       </ng-template>
 
       <mat-form-field appearance="outline" class="input-box">
         <mat-label>Województwo</mat-label>
-        <select matNativeControl required
+        <select matNativeControl
                 formControlName="secondVoivodeshipControl">
           <option value=dolnośląskie>dolnośląskie</option>
           <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
@@ -97,7 +98,7 @@
   </mat-step>
   <mat-step [stepControl]="thirdFormGroup">
     <form [formGroup]="thirdFormGroup">
-      <ng-template matStepLabel>Informacje o przesyłce</ng-template>
+      <ng-template matStepLabel><span class="add-package">Informacje o przesyłce</span></ng-template>
       <mat-form-field appearance="outline" class="input-box">
         <mat-label>Waga (kilogramy)</mat-label>
         <input  matInput placeholder="1"
@@ -124,7 +125,7 @@
   </mat-step>
   <mat-step [stepControl]="fourthFormGroup">
     <form [formGroup]="fourthFormGroup">
-      <ng-template matStepLabel>Potwierdzenie</ng-template>
+      <ng-template matStepLabel><span class="add-package">Potwierdzenie</span></ng-template>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Komentarz</mat-label>
         <textarea matInput placeholder="Opis przewożonego towaru"
@@ -150,3 +151,4 @@
     </form>
   </mat-step>
 </mat-vertical-stepper>
+</div>

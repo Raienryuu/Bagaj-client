@@ -1,3 +1,19 @@
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.page-bottom {
+  border-top: 2px solid;
+  text-align: center;
+}
+
 .mat-stepper-vertical {
   margin-top: 8px;
 }
@@ -6,25 +22,41 @@
   margin-top: 16px;
 }
 
+@mixin sizefont {
+  //font-size: clamp(0.4rem, -0.875rem + 1.5vw + 1.5vh, 1.3rem) !important;
+  font-size: clamp(0.8rem, -0.875rem + 1vw + 1vh, 3rem) !important;
+
+}
+
 .font-sizer {
-  font-size: clamp(0.5rem, -0.875rem + 6vw + 2vh, 1.3rem);
+  @include sizefont;
+}
+
+.buttons-toolbar {
+  @include sizefont;
+  margin: 0.5vh;
+  //height: 5vh;
+  width: auto;
+  min-width: 10vw;
+
+  padding: 0.3vh;
 }
 
 .buttons {
   margin: 0.5vh;
-  height: 5vh;
+  //height: 5vh;
   width: auto;
-  min-width: 20vw;
-  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
-  padding: 1vh;
+  min-width: 10vw;
+  @include sizefont;
+  padding: 0.3vh;
 }
 
 .menu-buttons {
+  @include sizefont;
   margin: 0.5vh;
-  height: 5vh;
-  width: auto;
-  min-width: 15vh;
-  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem);
+  height: 10%;
+  min-width: 10vw;
+  width: 90%;
   padding: 0.1vh;
 }
 
@@ -43,8 +75,44 @@ mat-drawer-content {
   align-items: flex-start;
 }
 
-.example-container {
-  min-height: 200px;
-  margin: 12px;
-  border: 1px solid #555;
+.username {
+  margin: auto;
+}
+
+.drawer{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 75vw;
+  background: #eee;
+}
+
+.drawer-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+
+  /* Set the height to match that of the viewport. */
+  height: 100vh;
+
+
+  /* Remove any browser-default margins. */
+  margin: 0;
+}
+
+.home-class {
+  @include sizefont;
+  height: 100%;
+  width: 100%;
+
+  /* Set the height to match that of the viewport. */
+  height: 100vh;
+
+  /* Set the width to match that of the viewport. */
+  width: 100vw;
+
+  /* Remove any browser-default margins. */
+  margin: 0;
 }

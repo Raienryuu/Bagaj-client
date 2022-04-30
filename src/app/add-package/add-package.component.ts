@@ -88,7 +88,8 @@ export class AddPackageComponent implements OnInit {
       .subscribe(() => {
         this.snackBar
           .open('Pomyślnie dodano przesyłkę', 'Ok', {
-            duration: 3000 });
+            duration: 3000, panelClass: ['green-snackbar'] });
+        this.router.navigate(['/']);
       });
   }
 }

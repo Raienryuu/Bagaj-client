@@ -79,9 +79,11 @@ export class RegisterComponent implements OnInit {
         .subscribe(() => {this.loginAvailable = false;
                           return; }, );
       this.authorizationService.registerNewUser(this.user)
-        .subscribe(() => this.router.navigate(['login']).then(() => this.snackBar
-          .open('Rejestracja przebiegła pomyślnie', 'Ok', {
-            duration: 3000 })), () => this.serverResponse = false);
+        .subscribe(() => this.router.navigate(['login']).then(() =>
+            this.snackBar
+            .open('Rejestracja przebiegła pomyślnie', 'Ok', {
+            duration: 3000 })),
+          () => this.serverResponse = false);
 
     }
 

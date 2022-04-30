@@ -1,3 +1,11 @@
+@mixin fontsizer {
+  font-size: clamp(0.8rem, -0.875rem + 1vw + 1vh, 3rem) !important;
+}
+
+.sizefont {
+  @include fontsizer;
+}
+
 
 body {
   background-color: #ffffff;
@@ -7,18 +15,17 @@ body {
 
 
 .box {
+  @include fontsizer;
   position: relative;
   text-align: center;
   top: 10vh;
   opacity: 100%;
-  margin: 0 auto;
+  margin: auto;
   //float: left;
+  width: 70vw;
 
 
   padding: 10vh 1vw 10vh 1vw;
-
-
-
 
   background: #ffffff;
 
@@ -43,10 +50,28 @@ body {
 }
 
 
-.buttons {
+.button {
   margin: 0.5vh;
-  height: 5vh;
+  height: 5%;
+
+  padding: 0.1vh;
   width: auto;
-  min-width: 20vw;
-  font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem)
+  font-size: clamp(0.8rem, -0.875rem + 1vw + 1vh, 3rem) !important;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  min-height: 50px;
+  min-width: 15vw;
+  max-width: 18vw;
+
+}
+
+.title {
+  font-size: clamp(1rem, -0.875rem + 3vw + 3vh, 6rem);
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+
 }

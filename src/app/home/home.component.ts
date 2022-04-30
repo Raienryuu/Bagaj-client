@@ -23,16 +23,14 @@ export class HomeComponent implements OnInit {
               private router: Router,
               private snackBar: MatSnackBar) {
 
-    this.userChoice = 2;
+    this.userChoice = 3; // TODO: zmienić na 2
     this.sidenavOpen = false;
   }
 
   ngOnInit(): void {
 
-    console.log(localStorage.getItem('token'));
-
     if (localStorage.getItem('token') == null){
-      this.router.navigate(['login']).then(r => console.log('no session found'));
+      this.router.navigate(['login']).then();
       return;
     }
 

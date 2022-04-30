@@ -1,6 +1,11 @@
 <body xmlns="http://www.w3.org/1999/html">
 <ng-form (keyup.enter)="loginButton()">
-  <div  class="box" >
+
+  <div  class="box"
+        >
+    <div class="title">
+      Logowanie
+    </div>
     <mat-form-field class="input-box" appearance="outline">
       <mat-label>Login</mat-label>
       <input matInput type="text" autofocus
@@ -15,13 +20,13 @@
       <mat-error>Pole nie może być puste</mat-error>
     </mat-form-field>
 
-    <div>
-      <button mat-raised-button color="primary" class="buttons"
+    <div class="buttons">
+      <button mat-raised-button color="primary" class="button"
       (click)="loginButton()">Zaloguj</button>
-    </div>
 
-    <a class="buttons" mat-button href="http://localhost:4200/register">Rejestracja</a>
-<!--    {{token.token}}-->
+
+    <a class="button" mat-button href="http://localhost:4200/register">Rejestracja</a>
+    </div>
   </div>
 </ng-form>
 </body>
