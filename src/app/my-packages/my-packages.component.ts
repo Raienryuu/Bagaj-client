@@ -3,7 +3,7 @@ import {PackagesService} from '../services/packages.service';
 import {PackageModel} from '../models/package.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {AuthorizationService} from '../services/authorization.service';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 import {UserModel} from '../models/user.model';
 import {FormControl, Validators} from '@angular/forms';
 import {BidsService} from '../services/bids.service';
@@ -17,6 +17,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './my-packages.component.html',
   styleUrls: ['./my-packages.component.scss']
 })
+
 export class MyPackagesComponent implements OnInit {
 
   packagesList: any;
@@ -30,8 +31,12 @@ export class MyPackagesComponent implements OnInit {
   bidControl: any;
   newBid: any;
   ratingControl: any;
+  scrollPos: any;
+  pageControl: any;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
+
 
   constructor(private packagesService: PackagesService,
               private authorizationService: AuthorizationService,
@@ -42,6 +47,8 @@ export class MyPackagesComponent implements OnInit {
   ) {
     this.tableData = new MatTableDataSource<PackageModel>();
 
+    this.pageControl = {currentPage: 1, pageSize: 6, itemCount: -1};
+
     this.ratingControl = new FormControl(5, [
       Validators.min(1),
     Validators.max(10)]);
@@ -50,10 +57,13 @@ export class MyPackagesComponent implements OnInit {
       Validators.min(1)]);
 
     this.displayedColumns = ['odleglosc', `wojewodztwoS`, `miejscowoscS`, `waga`, `wymiary`, `senderHelp`, `lowestBid`, `wojewodztwoE`, `miejscowoscE`, 'stanPaczki'];
+
+
   }
 
   ngOnInit(): void {
-    this.GetUserPackages();
+
+    this.GetUserPackagesCount();
     this.GetMyUser();
     this.senderUser = new UserModel();
     this.transporterUser = new UserModel();
@@ -62,17 +72,36 @@ export class MyPackagesComponent implements OnInit {
     this.detailedView = false;
   }
 
-  GetUserPackages(): void {
-    this.packagesService.GetUserPackages()
+
+
+  GetUserPackagesPage(): void {
+    this.packagesService.GetUserPackagesPage(
+      this.pageControl.currentPage,
+      this.pageControl.pageSize)
       .subscribe(data => {this.packagesList = data;
-                          this.paginator.length = this.packagesList.length;
-                          this.tableData.data = this.packagesList;
+      });
+  }
+
+  GetUserPackagesCount(): void {
+    this.packagesService.GetUserPackagesCount()
+      .subscribe(data => {this.pageControl.itemCount = data;
+                          this.GetUserPackagesPage();
       });
   }
 
   openPackageDetails(row: any): void {
     this.selectedPackage = [];
     this.detailedView = true;
+
+    row = Number(row);
+
+    for (const p of this.packagesList) {
+      if (p.id === row) {
+        row = p;
+        break;
+      }
+    }
+
     this.selectedPackage = row;
 
     this.bidControl.max = this.selectedPackage.lowestBid - 1;
@@ -114,7 +143,7 @@ export class MyPackagesComponent implements OnInit {
         .open('Anulowano przesyłkę', 'Ok', {
           duration: 3000 });
                         this.goBack();
-                        this.GetUserPackages(); });
+                        this.GetUserPackagesPage(); });
   }
 
   acceptTransporterPackage(): void {
@@ -122,21 +151,15 @@ export class MyPackagesComponent implements OnInit {
     editPackage.Id = this.selectedPackage.id;
     this.packagesService.AcceptTransporterPackage(
       editPackage).subscribe(() => {this.snackBar
-      .open('Pomyślnie akceptowano przewoźnika', 'Ok', {
+      .open('Pomyślnie akceptowano przewoźnika', '', {
         duration: 3000 });
                                     this.goBack();
-                                    this.GetUserPackages(); });
+                                    this.GetUserPackagesPage(); });
   }
 
   GetMyUser(): void {
     this.authorizationService.getMyUser()
       .subscribe(data => this.myUser = data);
-  }
-
-  ChangePage(p: PageEvent): void{
-    this.tableData.data = this.packagesList.slice(
-      this.paginator.pageIndex * this.paginator.pageSize,
-      this.paginator.pageIndex * this.paginator.pageSize + this.paginator.pageSize);
   }
 
   AddNewBid(): void {
@@ -145,7 +168,7 @@ export class MyPackagesComponent implements OnInit {
       BidValue: this.bidControl.value,
     };
     this.bidsService.PostNewBid(this.newBid)
-      .subscribe(() => {this.GetUserPackages();
+      .subscribe(() => {this.GetUserPackagesPage();
                         this.snackBar
           .open('Pomyślnie złożono oferte', 'Ok', {
             duration: 3000 });
@@ -221,5 +244,32 @@ export class MyPackagesComponent implements OnInit {
 
   checkIfPackageIsClosed(): boolean {
     return this.selectedPackage.offerState === 2;
+  }
+
+  // page buttons
+  goToFirstPage(): void{
+    this.pageControl.currentPage = 1;
+    this.packagesList = [];
+    this.GetUserPackagesPage();
+  }
+  goToLeftPage(): void{
+    if (this.pageControl.currentPage > 1) {
+      this.pageControl.currentPage -= 1;
+      this.packagesList = [];
+      this.GetUserPackagesPage();
+    }
+  }
+  goToRightPage(): void{
+    if (this.pageControl.currentPage <
+      (this.pageControl.itemCount / this.pageControl.pageSize)) {
+      this.pageControl.currentPage += 1;
+      this.packagesList = [];
+      this.GetUserPackagesPage();
+    }
+  }
+  goToLastPage(): void{
+    this.pageControl.currentPage = Math.floor(this.pageControl.itemCount / this.pageControl.pageSize + 1);
+    this.packagesList = [];
+    this.GetUserPackagesPage();
   }
 }

@@ -1,293 +1,305 @@
-<div class="main">
+<div class="main" >
 
-<div [hidden]="checkDetailView()">
-  <!--
-    <table mat-table [dataSource]="tableData"
-           class="mat-elevation-z8 demo-table">
+  <div [hidden]="checkDetailView()" >
 
-    <ng-container matColumnDef="odleglosc">
-      <th mat-header-cell *matHeaderCellDef> Odległość </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.approximateDistance + ' km'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="wojewodztwoS">
-      <th mat-header-cell *matHeaderCellDef> Od </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.startVoivodeship}} </td>
-    </ng-container>
-    <ng-container matColumnDef="miejscowoscS">
-      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.startCity}} </td>
-    </ng-container>
-    <ng-container matColumnDef="waga">
-      <th mat-header-cell *matHeaderCellDef> Waga </th>
-      <td mat-cell *matCellDef="let packag">
-        {{calculateWeightUnit(packag.weight)}} </td>
-    </ng-container>
-    <ng-container matColumnDef="wymiary">
-      <th mat-header-cell *matHeaderCellDef> Wymiary </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.dimensions}} </td>
-    </ng-container>
-    <ng-container matColumnDef="senderHelp">
-      <th mat-header-cell *matHeaderCellDef> Pomoc </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.senderHelp ? "Tak" : "Nie"}} </td>
-    </ng-container>
-    <ng-container matColumnDef="lowestBid">
-      <th mat-header-cell *matHeaderCellDef> Oferta </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.lowestBid <= 0 ? "Brak" : packag.lowestBid + "zł"}} </td>
-    </ng-container>
-    <ng-container matColumnDef="wojewodztwoE">
-      <th mat-header-cell *matHeaderCellDef> Do </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.endVoivodeship}} </td>
-    </ng-container>
-    <ng-container matColumnDef="miejscowoscE">
-      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.endCity}} </td>
-    </ng-container>
+        <mat-card *ngFor="let p of packagesList"
+                  class="offer"
+                  (click)="openPackageDetails(p.id)">
 
-    <ng-container matColumnDef="stanPaczki">
-      <th mat-header-cell *matHeaderCellDef> Stan </th>
-      <td mat-cell *matCellDef="let packag">
-        {{GetStateDescription(packag.offerState)}} </td>
-    </ng-container>
+          <mat-grid-list cols="5" rowHeight="6vh">
 
-    <tr mat-header-row
-        *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row
-        (click)="openPackageDetails(row)"
-        *matRowDef="let row;
-  columns: displayedColumns;"></tr>
-  </table>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="1">
+               {{p.startCity}}
+            </mat-grid-tile>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="1">
+              {{p.startVoivodeship}}
+            </mat-grid-tile>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="1">
+              {{p.weight}} kg
+            </mat-grid-tile>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="2">
+              <div style="display: flex; flex-direction: column;">
+              <b>Pomoc</b>
+                <br>
+                <div>
+                  {{p.senderHelp ? "Tak" : "Nie"}}
+                </div>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="2">
+              <div style="display: flex; flex-direction: column;">
+              <b>Stan</b>
+                <br>
+                <div>
+                  {{GetStateDescription(p.offerState)}}
+                </div>
+              </div>
+            </mat-grid-tile>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 (page)="ChangePage($event)"
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
-  -->
-  <div *ngFor="let packag of packagesList"
-       (click)="openPackageDetails(packag.id)">
-    {{GetStateDescription(packag.offerState)}}
+
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="1">
+              {{p.endCity}}
+            </mat-grid-tile>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="1">
+              {{p.endVoivodeship}}
+            </mat-grid-tile>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="1">
+              {{p.dimensions}}
+            </mat-grid-tile>
+
+
+          </mat-grid-list>
+
+      </mat-card>
+
+
+    <div class="navi" >
+      <button mat-button class="sizefont"
+      (click)="goToFirstPage()"> << </button>
+      <button mat-button class="sizefont"
+      *ngIf="this.pageControl.currentPage > 1"
+      (click)="goToLeftPage()"> {{this.pageControl.currentPage - 1}} </button>
+      <button mat-button class="sizefont"
+      class="currentPageMark"> {{this.pageControl.currentPage}} </button>
+      <button mat-button class="sizefont"
+      *ngIf="this.pageControl.currentPage <
+      (this.pageControl.itemCount / this.pageControl.pageSize)"
+      (click)="goToRightPage()"> {{this.pageControl.currentPage + 1}} </button>
+      <button mat-button class="sizefont"
+      (click)="goToLastPage()"> >> </button>
+    </div>
+
   </div>
 
-</div>
-<div *ngIf="detailedView">
 
-    <mat-tab-group mat-align-tabs="center" class="info-header">
-      <mat-tab label="Ogólne" style="font-size: 8px">
-        <div class="tab-group">
-          <table>
-            <tr>
-              <td class="table-column1">Nazwa użytkownika</td>
-              <td class="table-column2">
-                {{this.senderUser.login}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Imię</td>
-              <td class="table-column2">
-                {{this.senderUser.name}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Kontakt</td>
-              <td class="table-column2">
-                {{this.senderUser.contactInfo}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Ocena</td>
-              <td class="table-column2">{{this.senderUser.rating < 0
-                ? "Brak" : this.senderUser.rating}}</td>
-            </tr>
-          </table>
-        </div>
-      </mat-tab>
-      <mat-tab label="Od">
-        <div class="tab-group">
-          <table>
-            <tr>
-              <td class="table-column1">Województwo</td>
-              <td class="table-column2">
-                {{this.selectedPackage.startVoivodeship}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Kod pocztowy</td>
-              <td class="table-column2">
-                {{this.selectedPackage.startPostCode}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Miejscowość</td>
-              <td class="table-column2">
-                {{this.selectedPackage.startCity}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Adres</td>
-              <td class="table-column2">
-                {{this.selectedPackage.startStreetAddress}}</td>
-            </tr>
-          </table>
-        </div>
-      </mat-tab>
-      <mat-tab label="Do">
-        <div class="tab-group">
-          <table>
-            <tr>
-              <td class="table-column1">Województwo</td>
-              <td class="table-column2">
-                {{this.selectedPackage.endVoivodeship}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Kod pocztowy</td>
-              <td class="table-column2">
-                {{this.selectedPackage.endPostCode}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Miejscowość</td>
-              <td class="table-column2">
-                {{this.selectedPackage.endCity}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Adres</td>
-              <td class="table-column2">
-                {{this.selectedPackage.endStreetAddress}}</td>
-            </tr>
-          </table>
-        </div>
-      </mat-tab>
+  <div *ngIf="detailedView" class="details">
+    <div style="position: relative">
+      <mat-tab-group mat-align-tabs="center" class="info-header" >
+        <mat-tab label="Ogólne">
+          <div class="tab-group">
+            <table>
+              <tr>
+                <td class="table-column1">Nazwa użytkownika</td>
+                <td class="table-column2">
+                  {{this.senderUser.login}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Imię</td>
+                <td class="table-column2">
+                  {{this.senderUser.name}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Kontakt</td>
+                <td class="table-column2">
+                  {{this.senderUser.contactInfo}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Ocena</td>
+                <td class="table-column2">{{this.senderUser.rating < 0
+                  ? "Brak" : this.senderUser.rating}}</td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Od">
+          <div class="tab-group">
+            <table>
+              <tr>
+                <td class="table-column1">Województwo</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.startVoivodeship}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Kod pocztowy</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.startPostCode}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Miejscowość</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.startCity}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Adres</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.startStreetAddress}}</td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Do">
+          <div class="tab-group">
+            <table>
+              <tr>
+                <td class="table-column1">Województwo</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.endVoivodeship}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Kod pocztowy</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.endPostCode}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Miejscowość</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.endCity}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Adres</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.endStreetAddress}}</td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
 
-      <mat-tab label="Szczegóły">
-        <div class="tab-group">
-          <table>
-            <tr>
-              <td class="table-column1">Waga</td>
-              <td class="table-column2">
-                {{calculateWeightUnit(
-                this.selectedPackage.weight)}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Wymiary</td>
-              <td class="table-column2">
-                {{this.selectedPackage.dimensions}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Pomoc w załadunku</td>
-              <td class="table-column2">
-                {{this.selectedPackage.senderHelp ? "Tak" : "Nie"}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Obecna oferta</td>
-              <td class="table-column2">
-                {{this.selectedPackage.lowestBid <= 0 ? "Brak"
-                : this.selectedPackage.lowestBid + " zł"}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Dodatkowe informacje</td>
-              <td class="table-column2">
-                {{this.selectedPackage.comment}}</td>
-            </tr>
-          </table>
-        </div>
-      </mat-tab>
+        <mat-tab label="Szczegóły">
+          <div class="tab-group">
+            <table>
+              <tr>
+                <td class="table-column1">Waga</td>
+                <td class="table-column2">
+                  {{calculateWeightUnit(
+                  this.selectedPackage.weight)}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Wymiary</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.dimensions}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Pomoc w załadunku</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.senderHelp ? "Tak" : "Nie"}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Obecna oferta</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.lowestBid <= 0 ? "Brak"
+                  : this.selectedPackage.lowestBid + " zł"}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Dodatkowe informacje</td>
+                <td class="table-column2">
+                  {{this.selectedPackage.comment}}</td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
 
-      <mat-tab *ngIf="checkIfSenderOrTransporter()"
-               label="Oferta od" >
-        <div class="tab-group">
-          <table>
-            <tr>
-              <td class="table-column1">Nazwa użytkownika</td>
-              <td class="table-column2">
-                {{this.transporterUser.login}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Imię</td>
-              <td class="table-column2">
-                {{this.transporterUser.name}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Kontakt</td>
-              <td class="table-column2">
-                {{this.transporterUser.contactInfo}}</td>
-            </tr>
-            <tr>
-              <td class="table-column1">Ocena</td>
-              <td class="table-column2">{{this.transporterUser.rating < 0
-                ? "Brak" : this.transporterUser.rating}}</td>
-            </tr>
-          </table>
-        </div>
-      </mat-tab>
+        <mat-tab *ngIf="checkIfSenderOrTransporter()"
+                 label="Oferta od" >
+          <div class="tab-group">
+            <table>
+              <tr>
+                <td class="table-column1">Nazwa użytkownika</td>
+                <td class="table-column2">
+                  {{this.transporterUser.login}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Imię</td>
+                <td class="table-column2">
+                  {{this.transporterUser.name}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Kontakt</td>
+                <td class="table-column2">
+                  {{this.transporterUser.contactInfo}}</td>
+              </tr>
+              <tr>
+                <td class="table-column1">Ocena</td>
+                <td class="table-column2">{{this.transporterUser.rating < 0
+                  ? "Brak" : this.transporterUser.rating}}</td>
+              </tr>
+            </table>
+          </div>
+        </mat-tab>
 
-    </mat-tab-group>
+      </mat-tab-group>
 
-    <div class="buttons">
+      <div class="buttons">
+        <button mat-raised-button color="primary"
+                class="menu-buttons"
+                (click)="goBack()">Powrót</button>
+
       <button mat-raised-button color="primary"
+              *ngIf="checkIfSender()
+  && !checkIfPackageOfferIsNoLongerOpen()"
               class="menu-buttons"
-              (click)="goBack()">Powrót</button>
+              (click)="cancelPackage()">Anuluj</button>
+
+      <button mat-raised-button color="primary"
+              *ngIf="checkIfPackagageGotAnyBid() &&
+              checkIfSender()
+  && !checkIfPackageOfferIsNoLongerOpen()"
+              class="menu-buttons"
+              (click)="acceptTransporterPackage()">Akceptuj</button>
+
+    <mat-form-field appearance="outline" class="input-box"
+                    *ngIf="checkIfPackageIsInProgress()
+  && checkIfSender() || (!checkIfSender()
+  && checkIfPackageIsClosed())">
+      <mat-label>Ocena</mat-label>
+      <select matNativeControl
+              [formControl]="ratingControl"
+              required>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9>9</option>
+        <option value=10>10</option>
+      </select>
+    </mat-form-field>
 
     <button mat-raised-button color="primary"
-            *ngIf="checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen()"
+            [disabled]="!ratingControl.valid"
+            *ngIf="checkIfPackageIsInProgress()
+  && checkIfSender() || (!checkIfSender()
+  && checkIfPackageIsClosed())"
             class="menu-buttons"
-            (click)="cancelPackage()">Anuluj</button>
+            (click)="ratePackage()">Oceń i zamknij oferte</button>
+
+    <mat-form-field class="input-box" appearance="outline"
+                    *ngIf="!checkIfSender()
+  && !checkIfPackageOfferIsNoLongerOpen()"
+                    >
+      <mat-label>Twoja oferta</mat-label>
+      <input matInput type="number"
+             [formControl]="bidControl"
+      >
+      <span matSuffix> zł</span>
+      <mat-error>Oferta musi być większa niż obecna</mat-error>
+    </mat-form-field>
 
     <button mat-raised-button color="primary"
-            *ngIf="checkIfPackagageGotAnyBid() &&
-            checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen()"
             class="menu-buttons"
-            (click)="acceptTransporterPackage()">Akceptuj</button>
+            *ngIf="!checkIfSender()
+  && !checkIfPackageOfferIsNoLongerOpen()"
+            (click)="AddNewBid()">Złóż oferte</button>
 
-  <mat-form-field appearance="outline" class="input-box"
-                  *ngIf="checkIfPackageIsInProgress()
-&& checkIfSender() || (!checkIfSender()
-&& checkIfPackageIsClosed())">
-    <mat-label>Ocena</mat-label>
-    <select matNativeControl
-            [formControl]="ratingControl"
-            required>
-      <option value=1>1</option>
-      <option value=2>2</option>
-      <option value=3>3</option>
-      <option value=4>4</option>
-      <option value=5>5</option>
-      <option value=6>6</option>
-      <option value=7>7</option>
-      <option value=8>8</option>
-      <option value=9>9</option>
-      <option value=10>10</option>
-    </select>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary"
-          [disabled]="!ratingControl.valid"
-          *ngIf="checkIfPackageIsInProgress()
-&& checkIfSender() || (!checkIfSender()
-&& checkIfPackageIsClosed())"
-          class="menu-buttons"
-          (click)="ratePackage()">Oceń i zamknij oferte</button>
-
-  <mat-form-field class="input-box" appearance="outline"
-                  *ngIf="!checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen()"
-                  >
-    <mat-label>Twoja oferta</mat-label>
-    <input matInput type="number"
-           [formControl]="bidControl"
-    >
-    <span matSuffix> zł</span>
-    <mat-error>Oferta musi być większa niż obecna</mat-error>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary"
-          class="menu-buttons"
-          *ngIf="!checkIfSender()
-&& !checkIfPackageOfferIsNoLongerOpen()"
-          (click)="AddNewBid()">Złóż oferte</button>
-
-
-    </div>
-</div>
+      </div>
+      </div>
+  </div>
 </div>

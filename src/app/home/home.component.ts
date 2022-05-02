@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
               private router: Router,
               private snackBar: MatSnackBar) {
 
-    this.userChoice = 3; // TODO: zmienić na 2
+    this.userChoice = 2; // TODO: zmienić na 2
     this.sidenavOpen = false;
   }
 

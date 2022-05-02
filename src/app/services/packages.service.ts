@@ -11,16 +11,50 @@ export class PackagesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  GetUserPackages(): Observable<PackageModel> {
+  GetUserPackagesPage(page: string, pageSize: string): Observable<PackageModel> {
     return this.httpClient.get<PackageModel>(
-      environment.api + 'packages/releated/'
-      + localStorage.getItem('token'));
+      environment.api + 'packages/releatedP/'
+      + localStorage.getItem('token'), {
+        params: {page, size: pageSize}});
+  }
+
+  GetUserPackagesCount(): Observable<number> {
+    return this.httpClient.get<number>(environment.api +
+      'packages/releatedCount/' + localStorage.getItem('token'));
   }
 
   GetMarketPackages(): Observable<PackageModel> {
     return this.httpClient.get<PackageModel>(
       environment.api + 'packages/market/'
       + localStorage.getItem('token'));
+  }
+
+  GetMarketPackagesPage(page: string, pageSize: string, voiS: any,
+                        voiE: any, dist: any,
+                        weightLimitTo: any, weightLimitFrom: any
+                        ): Observable<PackageModel> {
+
+    return this.httpClient.get<PackageModel>(
+      environment.api + 'packages/marketP/'
+      + localStorage.getItem('token'), {
+        params: {page, size: pageSize, voiS, voiE, dist,
+        weightLimitTo, weightLimitFrom}});
+  }
+
+  GetMarketPackagesPageCopy(page: string, pageSize: string): Observable<PackageModel> {
+    return this.httpClient.get<PackageModel>(
+      environment.api + 'packages/marketP/'
+      + localStorage.getItem('token'), {
+        params: {page, size: pageSize}});
+  }
+
+  GetMarketPackagesCount(voiS: any, voiE: any, dist: any,
+                         weightLimitTo: any, weightLimitFrom: any
+  ): Observable<number> {
+    return this.httpClient.get<number>(environment.api +
+      'packages/marketCount/' + localStorage.getItem('token'), {
+      params: {voiS, voiE, dist,
+        weightLimitTo, weightLimitFrom}});
   }
 
   AddPackage(token: string, packageModel: PackageModel):

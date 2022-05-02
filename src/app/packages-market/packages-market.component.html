@@ -1,17 +1,12 @@
-<div class="main">
-<div [hidden]="detailedView">
-  <p style="font-size: clamp(0.7rem, -0.875rem + 2vw + 2vh, 1.3rem)">
-    Wszystkie przesyłki<br>
-    Flitry</p>
-  <div class="filters">
-    <form [formGroup]="filtersGroup">
-      <mat-card
-        style="padding: 4vh">
-        <mat-form-field appearance="outline" class="input-box">
+<div class="main" >
+<div [hidden]="detailedView" >
+  <div class="filters" >
+    <form [formGroup]="filtersGroup" >
+        <mat-form-field appearance="outline" class="input-boxf">
           <mat-label>Woj początkowe</mat-label>
           <select matNativeControl
                   formControlName="startVoivoControl">
-            <option value='brak'>brak</option>
+            <option value=''>brak</option>
             <option value=dolnośląskie>dolnośląskie</option>
             <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
             <option value=lubelskie>lubelskie</option>
@@ -31,11 +26,11 @@
           </select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="input-box">
+        <mat-form-field appearance="outline" class="input-boxf">
           <mat-label>Woj końcowe</mat-label>
           <select matNativeControl
                   formControlName="endVoivoControl">
-            <option value='brak'>brak</option>
+            <option value=''>brak</option>
             <option value=dolnośląskie>dolnośląskie</option>
             <option value=kujawsko-pomorskie>kujawsko-pomorskie</option>
             <option value=lubelskie>lubelskie</option>
@@ -55,97 +50,134 @@
           </select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="input-box">
+        <mat-form-field appearance="outline" class="input-boxf">
           <mat-label>Waga do (kilogramy)</mat-label>
           <input  matInput placeholder=""
                   type="number"
                   formControlName="weightLimitControl">
-          <span matSuffix> kg</span>
+
           <mat-error>Przesyłka nie może być lżejsza niż 1kg</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="input-box">
+        <mat-form-field appearance="outline" class="input-boxf">
+          <mat-label>Waga od (kilogramy)</mat-label>
+          <input  matInput placeholder=""
+                  type="number"
+                  formControlName="weightLimitControl2">
+
+          <mat-error>Przesyłka nie może być lżejsza niż 1kg</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-boxf">
           <mat-label>Odległość do (kilometry)</mat-label>
           <input  matInput placeholder=""
                   type="number"
                   formControlName="distanceControl">
-          <span matSuffix> km</span>
+
           <mat-error>Odległość nie może być mniejsza niż 1km</mat-error>
         </mat-form-field>
 
         <button mat-raised-button color="accent"
-                style="margin-left: 1vw;
-                margin-right: 1vw"
+
                 class="menu-buttons"
+                style="float: right; flex: 1; width: 100%"
                 (click)="FilterPackages()">Szukaj</button>
         <br>
-
-      </mat-card>
     </form>
   </div>
   <br>
-  <table mat-table [dataSource]="tableData"
-         class="mat-elevation-z8 demo-table">
-    <ng-container matColumnDef="odleglosc">
-      <th mat-header-cell *matHeaderCellDef> Odległość </th>
-      <td mat-cell *matCellDef="let packag">
-        {{packag.approximateDistance + ' km'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="wojewodztwoS">
-      <th mat-header-cell *matHeaderCellDef> Od </th>
-      <td mat-cell *matCellDef="let package">
-        {{package.startVoivodeship}} </td>
-    </ng-container>
-    <ng-container matColumnDef="miejscowoscS">
-      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
-      <td mat-cell *matCellDef="let package">
-        {{package.startCity}} </td>
-    </ng-container>
-    <ng-container matColumnDef="waga">
-      <th mat-header-cell *matHeaderCellDef> Waga </th>
-      <td mat-cell *matCellDef="let package">
-        {{calculateWeightUnit(package.weight)}} </td>
-    </ng-container>
-    <ng-container matColumnDef="wymiary">
-      <th mat-header-cell *matHeaderCellDef> Wymiary </th>
-      <td mat-cell *matCellDef="let package">
-        {{package.dimensions}} </td>
-    </ng-container>
-    <ng-container matColumnDef="senderHelp">
-      <th mat-header-cell *matHeaderCellDef> Pomoc </th>
-      <td mat-cell *matCellDef="let package">
-        {{package.senderHelp ? "Tak" : "Nie"}} </td>
-    </ng-container>
-    <ng-container matColumnDef="lowestBid">
-      <th mat-header-cell *matHeaderCellDef> Oferta </th>
-      <td mat-cell *matCellDef="let package">
-        {{package.lowestBid <= 0 ? "Brak" : package.lowestBid + "zł"}} </td>
-    </ng-container>
-    <ng-container matColumnDef="wojewodztwoE">
-      <th mat-header-cell *matHeaderCellDef> Do </th>
-      <td mat-cell *matCellDef="let package">
-        {{package.endVoivodeship}} </td>
-    </ng-container>
-    <ng-container matColumnDef="miejscowoscE">
-      <th mat-header-cell *matHeaderCellDef> Miejscowość </th>
-      <td mat-cell *matCellDef="let package">
-        {{package.endCity}} </td>
-    </ng-container>
 
-    <tr mat-header-row
-        *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row
-        (click)="openPackageDetails(row)"
-        *matRowDef="let row;
-  columns: displayedColumns;"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 (page)="ChangePage($event)"
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
+  <mat-card *ngFor="let p of packagesList"
+            class="offer"
+            (click)="openPackageDetails(p.id)">
+
+    <mat-grid-list cols="5" rowHeight="6vh">
+
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        {{p.startCity}}
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        {{p.startVoivodeship}}
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        Waga:
+        {{p.weight}} kg
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        Trasa:
+        {{p.approximateDistance}} km
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="2">
+        <div style="display: flex; flex-direction: column;">
+          <b>Pomoc</b>
+          <br>
+          <div>
+            {{p.senderHelp ? "Tak" : "Nie"}}
+          </div>
+        </div>
+      </mat-grid-tile>
+
+
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        {{p.endCity}}
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        {{p.endVoivodeship}}
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        Wymiary:
+        {{p.dimensions}}
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1">
+        {{p.lowestBid > 0? p.lowestBid + ' zł': 'Brak ofert'}}
+      </mat-grid-tile>
+
+
+    </mat-grid-list>
+
+  </mat-card>
+
+
+  <div class="navi" >
+    <button mat-button class="sizefont"
+            (click)="goToFirstPage()"> << </button>
+    <button mat-button class="sizefont"
+            *ngIf="this.pageControl.currentPage > 1"
+            (click)="goToLeftPage()"> {{this.pageControl.currentPage - 1}} </button>
+    <button mat-button class="sizefont"
+            class="currentPageMark"> {{this.pageControl.currentPage}} </button>
+    <button mat-button class="sizefont"
+            *ngIf="this.pageControl.currentPage <
+      (this.pageControl.itemCount / this.pageControl.pageSize)"
+            (click)="goToRightPage()"> {{this.pageControl.currentPage + 1}} </button>
+    <button mat-button class="sizefont"
+            (click)="goToLastPage()"> >> </button>
+  </div>
+
 </div>
-<div *ngIf="detailedView">
 
+
+<div *ngIf="detailedView" class="details">
+  <div>
   <mat-tab-group style="width: 100%">
     <mat-tab label="Ogólne" >
       <div class="tab-group">
@@ -252,25 +284,26 @@
 
   </mat-tab-group>
 
-  <div class="buttons">
+      <div class="buttons">
 
-  <button mat-raised-button color="primary"
-          class="menu-buttons"
-          (click)="goBack()">Powrót</button>
+      <button mat-raised-button color="primary"
+              class="menu-buttons"
+              (click)="goBack()">Powrót</button>
 
-  <mat-form-field class="input-box" appearance="outline">
-    <mat-label>Twoja oferta</mat-label>
-    <input matInput type="number"
-           [formControl]="bidControl">
-    <span matSuffix> zł</span>
-    <mat-error>Oferta musi być większa niż obecna</mat-error>
-  </mat-form-field>
+      <mat-form-field class="input-box" appearance="outline">
+        <mat-label>Twoja oferta</mat-label>
+        <input matInput type="number"
+               [formControl]="bidControl">
+        <span matSuffix> zł</span>
+        <mat-error>Oferta musi być większa niż obecna</mat-error>
+      </mat-form-field>
 
-  <button mat-raised-button color="primary"
-          class="menu-buttons"
-          (click)="AddNewBid()">Złóż oferte</button>
+      <button mat-raised-button color="primary"
+              class="menu-buttons"
+              (click)="AddNewBid()">Złóż oferte</button>
 
+      </div>
+
+    </div>
   </div>
-
-</div>
 </div>
