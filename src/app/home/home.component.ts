@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
               private router: Router,
               private snackBar: MatSnackBar) {
 
-    this.userChoice = 2; // TODO: zmienić na 2
+    this.userChoice = 2;
     this.sidenavOpen = false;
   }
 
@@ -46,8 +46,8 @@ export class HomeComponent implements OnInit {
       .subscribe(() => {
         localStorage.removeItem('token');
         this.router.navigate(['login']).then(r => this.snackBar
-          .open('Pomyślne wylogowanie', 'Ok', {
-            duration: 3000 }));
+          .open('Pomyślne wylogowanie', '', {
+            duration: 3000, panelClass: ['purple-snackbar'] }));
       });
   }
 

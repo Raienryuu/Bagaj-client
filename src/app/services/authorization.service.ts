@@ -14,7 +14,6 @@ export class AuthorizationService {
   }
 
   loginUser(login: string, password: string): Observable<TokenModel> {
-    // Add safe, URL encoded search parameter if there is a search term
     const options = new HttpParams()
           .set('login', login)
           .set('password', password);
@@ -61,10 +60,4 @@ export class AuthorizationService {
       + localStorage.getItem('token'));
   }
 
-  getSimpleData(): Observable<UserModel> {
-    const options = new HttpParams()
-      .set('token', localStorage.getItem('token') as string);
-    return this.httpClient.get<UserModel>(`${environment.api}values`,
-      {params: options});
-  }
 }

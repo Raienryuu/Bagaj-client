@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
             duration: 3000, panelClass: ['red-snackbar'] }))
         );
     }
-
   }
 
 }

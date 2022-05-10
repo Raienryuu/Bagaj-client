@@ -81,14 +81,14 @@ export class RegisterComponent implements OnInit {
       this.authorizationService.registerNewUser(this.user)
         .subscribe(() => this.router.navigate(['login']).then(() =>
             this.snackBar
-            .open('Rejestracja przebiegła pomyślnie', 'Ok', {
-            duration: 3000 })),
+            .open('Rejestracja przebiegła pomyślnie', '', {
+            duration: 3000, panelClass: ['purple-snackbar'] })),
           () => this.serverResponse = false);
 
     }
 
 
 
-    }
+  }
 
 }

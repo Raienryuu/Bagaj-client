@@ -61,6 +61,8 @@ export class AddPackageComponent implements OnInit {
 
   }
 
+
+
   AddPackage(): void {
 
     this.package = {
@@ -87,7 +89,7 @@ export class AddPackageComponent implements OnInit {
     this.packagesService.AddPackage(tok, this.package)
       .subscribe(() => {
         this.snackBar
-          .open('Pomyślnie dodano przesyłkę', 'Ok', {
+          .open('Pomyślnie dodano przesyłkę', '', {
             duration: 3000, panelClass: ['green-snackbar'] });
         this.router.navigate(['/']);
       });

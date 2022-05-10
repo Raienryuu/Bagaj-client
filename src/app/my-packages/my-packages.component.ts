@@ -22,7 +22,6 @@ export class MyPackagesComponent implements OnInit {
 
   packagesList: any;
   tableData: MatTableDataSource<PackageModel>;
-  displayedColumns: string[];
   detailedView: any;
   selectedPackage: any;
   senderUser: any;
@@ -55,9 +54,6 @@ export class MyPackagesComponent implements OnInit {
 
     this.bidControl = new FormControl(1, [
       Validators.min(1)]);
-
-    this.displayedColumns = ['odleglosc', `wojewodztwoS`, `miejscowoscS`, `waga`, `wymiary`, `senderHelp`, `lowestBid`, `wojewodztwoE`, `miejscowoscE`, 'stanPaczki'];
-
 
   }
 
@@ -131,7 +127,6 @@ export class MyPackagesComponent implements OnInit {
   }
 
   goBack(): void {
-    this.tableData.paginator = this.paginator;
     this.detailedView = false;
   }
 
@@ -140,8 +135,8 @@ export class MyPackagesComponent implements OnInit {
     editPackage.Id = this.selectedPackage.id;
     this.packagesService.CancelMyPackage(editPackage)
       .subscribe(() => {this.snackBar
-        .open('Anulowano przesyłkę', 'Ok', {
-          duration: 3000 });
+        .open('Anulowano przesyłkę', '', {
+          duration: 3000, panelClass: ['red-snackbar'] });
                         this.goBack();
                         this.GetUserPackagesPage(); });
   }
@@ -152,7 +147,7 @@ export class MyPackagesComponent implements OnInit {
     this.packagesService.AcceptTransporterPackage(
       editPackage).subscribe(() => {this.snackBar
       .open('Pomyślnie akceptowano przewoźnika', '', {
-        duration: 3000 });
+        duration: 3000, panelClass: ['green-snackbar'] });
                                     this.goBack();
                                     this.GetUserPackagesPage(); });
   }
@@ -170,8 +165,8 @@ export class MyPackagesComponent implements OnInit {
     this.bidsService.PostNewBid(this.newBid)
       .subscribe(() => {this.GetUserPackagesPage();
                         this.snackBar
-          .open('Pomyślnie złożono oferte', 'Ok', {
-            duration: 3000 });
+          .open('Pomyślnie złożono oferte', '', {
+            duration: 3000, panelClass: ['green-snackbar'] });
                         this.router.navigate(['/']); });
   }
 
@@ -226,8 +221,8 @@ export class MyPackagesComponent implements OnInit {
     this.ratingService.RateAsSender(rating)
       .subscribe(() => {
         this.snackBar
-        .open('Pomyślnie dodano ocene', 'Ok', {
-          duration: 3000 });
+        .open('Pomyślnie dodano ocene', '', {
+          duration: 3000, panelClass: ['green-snackbar'] });
         this.detailedView = false;
       });
     } else if (this.selectedPackage.transporterId === this.myUser.id){
@@ -235,8 +230,8 @@ export class MyPackagesComponent implements OnInit {
 
       this.ratingService.RateAsTransporter(rating)
         .subscribe(() => {this.snackBar
-          .open('Pomyślnie dodano ocene', 'Ok', {
-        duration: 3000 });
+          .open('Pomyślnie dodano ocene', '', {
+        duration: 3000, panelClass: ['green-snackbar'] });
                           this.detailedView = false;
         });
     }

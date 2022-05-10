@@ -182,7 +182,7 @@ export class PackagesMarketComponent implements OnInit {
       .subscribe(() => {this.GetMarketPackagesPage();
                         this.router.navigate(['/']).then(() => this.snackBar
                           .open('Pomyślnie dodano oferte', '', {
-                            duration: 3000 })); });
+                            duration: 3000, panelClass: ['green-snackbar'] })); });
   }
 
   FilterPackages(): void {

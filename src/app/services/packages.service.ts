@@ -41,13 +41,6 @@ export class PackagesService {
         weightLimitTo, weightLimitFrom}});
   }
 
-  GetMarketPackagesPageCopy(page: string, pageSize: string): Observable<PackageModel> {
-    return this.httpClient.get<PackageModel>(
-      environment.api + 'packages/marketP/'
-      + localStorage.getItem('token'), {
-        params: {page, size: pageSize}});
-  }
-
   GetMarketPackagesCount(voiS: any, voiE: any, dist: any,
                          weightLimitTo: any, weightLimitFrom: any
   ): Observable<number> {
