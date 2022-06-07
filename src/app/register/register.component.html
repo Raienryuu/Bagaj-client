@@ -10,8 +10,11 @@
     <mat-label>Login</mat-label>
     <input matInput type="text" autofocus
            [formControl]="loginControl">
-    <mat-error>Minimum 6 znaków</mat-error>
-    <mat-error *ngIf="!loginAvailable">Wybrana nazwa jest już zajęta</mat-error>
+    <mat-error *ngIf="loginControl.hasError('required') ||
+      loginControl.hasError('minlength')">Minimum 6 znaków</mat-error>
+    <mat-error *ngIf="!loginControl.errors?.loginAvailable?.value &&
+      !(loginControl.hasError('required') ||
+        loginControl.hasError('minlength'))">Wybrana nazwa jest już zajęta</mat-error>
   </mat-form-field>
 
   <mat-form-field class="input-box" appearance="outline">

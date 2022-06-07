@@ -75,19 +75,21 @@ export class RegisterComponent implements OnInit {
       };
 
       this.serverResponse = true;
+      this.loginAvailable = true;
+
       this.authorizationService.isLoginAvailable(this.user.login)
         .subscribe(() => {this.loginAvailable = false;
-                          return; }, );
-      this.authorizationService.registerNewUser(this.user)
-        .subscribe(() => this.router.navigate(['login']).then(() =>
-            this.snackBar
-            .open('Rejestracja przebiegła pomyślnie', '', {
-            duration: 3000, panelClass: ['purple-snackbar'] })),
-          () => this.serverResponse = false);
+                          this.loginControl.setErrors({loginAvailable: false});
+                          return; },
+          () => this.authorizationService.registerNewUser(this.user)
+          .subscribe(() => this.router.navigate(['login']).then(() =>
+              this.snackBar
+                .open('Rejestracja przebiegła pomyślnie', '', {
+                  duration: 3000, panelClass: ['purple-snackbar']
+                })),
+            () => this.serverResponse = false) );
 
     }
-
-
 
   }
 
