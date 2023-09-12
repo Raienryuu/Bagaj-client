@@ -1,27 +1,36 @@
-# BCLI
+# ParcelDelivery-client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.
+**ParcelDelivery-client** is the client-side application for the Parcel Delivery management system built using Angular. This application provides a user-friendly interface for users to manage parcels, track deliveries, and interact with the ParcelDelivery-server API.
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **User Authentication**: Secure user login and registration.
+- **Parcel Management**: View, create, update, and delete parcels.
+- **User Dashboard**: A personalized dashboard for users to manage their parcels.
+- **Intuitive UI**: A user-friendly interface for an enhanced user experience.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To run this client-side application locally, follow these steps:
 
-## Running end-to-end tests
+1. **Clone the repository:**
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+   ```bash
+   git clone https://github.com/Raienryuu/ParcelDelivery-client.git
+   cd ParcelDelivery-client
 
-## Further help
+2. **Start server**
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+
+## Usage
+
+Once the application is running, you can access it in your web browser. Users can register, log in, and use the various features to manage their parcels and track deliveries. Make sure the ParcelDelivery-server is running and properly configured for full functionality.
